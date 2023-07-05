@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-)=o3-(vv2l4pqs36ysd6h-br_!r(n3l)5w=f36-jrfq^$$dryp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+
 # Application definition
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -82,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'authservice.wsgi.application'
+WSGI_APPLICATION = 'authservice.wsgi.app'
 
 
 # Database
