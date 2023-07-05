@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "authservice/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "authservice/wsgi.py"
+      }
+    ]
+}
