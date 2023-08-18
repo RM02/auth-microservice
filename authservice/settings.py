@@ -11,10 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+import environ
+import os.path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -25,12 +31,17 @@ SECRET_KEY = 'django-insecure-)=o3-(vv2l4pqs36ysd6h-br_!r(n3l)5w=f36-jrfq^$$dryp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://localhost:8000',
+    'http://192.168.0.206:3000',
+    'http://192.168.0.206:8001', 
+    'http://192.168.0.206:8000', 
 ]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,7 +81,9 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+          os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,38 +96,42 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'authservice.wsgi.app'
+## WSGI_APPLICATION = 'authservice.wsgi.app'
+WSGI_APPLICATION = 'vercel_app.wsgi.app'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-""" DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-} """
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:Qkcmx6CD9tcLJXal6DsJ@containers-us-west-155.railway.app:7550/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'Qkcmx6CD9tcLJXal6DsJ',
-        'HOST': 'containers-us-west-155.railway.app',
-        'PORT': 7550,
+        'URL': env("DB_URL"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
 }
 
 AUTH_USER_MODEL='api.User'
 
 SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
   # It will work instead of the default serializer(TokenObtainPairSerializer).
-  #"TOKEN_OBTAIN_SERIALIZER": "api.serializers.MyTokenObtainPairSerializer",
+    # "TOKEN_OBTAIN_SERIALIZER": "api.serializers.MyTokenObtainPairSerializer",
   # ...
 }
+
+DEFAULT_PASS = env("DEFAULT_PASSWORD")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -133,6 +150,22 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]
+
+# Mailing 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
