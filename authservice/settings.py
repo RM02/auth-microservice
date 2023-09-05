@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import dj_database_url
+#import dj_database_url
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -123,19 +123,16 @@ WSGI_APPLICATION = 'authservice.wsgi.app'
 } """
 
 DATABASES = {
-    'default': dj_database_url.config(default=env("DB_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': env("DB_URL"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
+    }
 }
-
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'URL': env("DB_URL"),
-#         'NAME': env("DB_NAME"),
-#         'USER': env("DB_USER"),
-#         'PASSWORD': env("DB_PASSWORD"),
-#         'HOST': env("DB_HOST"),
-#         'PORT': env("DB_PORT"),
-#     }
-# }
 
 AUTH_USER_MODEL='api.User'
 
