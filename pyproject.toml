@@ -39,7 +39,7 @@ urllib3 = "2.0.3"
 uuid = "1.30"
 dj-database-url = "^2.1.0"
 whitenoise = {extras = ["brotli"], version = "^6.5.0"}
-gunicorn = "^21.2.0"
+gunicorn==19.7.1
 
 
 [build-system]
