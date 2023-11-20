@@ -35,23 +35,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 DEBUG = 'RENDER' not in os.environ
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME: ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+AWS_APP_ENVIRONMENT = 'python-3.7'
+
 # Application definition
-CORS_ALLOWED_ORIGINS = [
-    'http://www.sabienal.com',
-    'http://190.201.125.137:3000',
-    'http://190.201.125.137:5001',
-    'http://190.201.125.137:5002',
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://192.168.0.206:3000',
-    'http://192.168.0.206:8001', 
-    'http://192.168.0.206:8000', 
-]
+# CORS_ALLOWED_ORIGINS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -115,22 +107,10 @@ WSGI_APPLICATION = 'authservice.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
-} """
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': env("DB_URL"),
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
     }
 }
 
@@ -197,6 +177,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Following settings only make sense on production and may break development environments.
 if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'URL': env("DB_URL"),
+            'NAME': env("DB_NAME"),
+            'USER': env("DB_USER"),
+            'PASSWORD': env("DB_PASSWORD"),
+            'HOST': env("DB_HOST"),
+            'PORT': env("DB_PORT"),
+        }
+    }
     # in your application directory on Render.
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Turn on WhiteNoise storage backend that takes care of compressing static files
