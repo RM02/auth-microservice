@@ -100,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'authservice.wsgi.application'
 #WSGI_APPLICATION = 'vercel_app.wsgi.app'
 
 
