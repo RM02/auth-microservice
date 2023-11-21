@@ -32,7 +32,7 @@ environ.Env.read_env()
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
@@ -176,7 +176,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # Following settings only make sense on production and may break development environments.
-if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+""" if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
     
     DATABASES = {
         'default': {
@@ -193,8 +193,9 @@ if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Default primary key field type
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' """
+
+
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
