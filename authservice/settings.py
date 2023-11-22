@@ -37,11 +37,6 @@ DEBUG = True
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME: ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-AWS_APP_ENVIRONMENT = 'python-3.7'
-
 # Application definition
 # CORS_ALLOWED_ORIGINS = []
 
@@ -101,8 +96,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'authservice.wsgi.application'
-#WSGI_APPLICATION = 'vercel_app.wsgi.app'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
