@@ -113,7 +113,7 @@ SIMPLE_JWT = {
   # ...
 }
 
-DEFAULT_PASS = env("DEFAULT_PASSWORD")
+DEFAULT_PASS = os.environ.get("DEFAULT_PASSWORD")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
