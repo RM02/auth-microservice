@@ -8,7 +8,6 @@ from .managers import CustomUserManager
 class User(AbstractUser):
     dni = models.CharField(max_length=50, null=True)
     document_type=models.CharField(max_length=250, choices=[("C", "Cedula"), ("P", "Pasaporte"), ("J", "RIF")], null=True)
-    #password=models.CharField(max_length=250, auto_created=True, default=make_password(DEFAULT_PASS))
 
     address = models.CharField(max_length=250, null=True)
     position = models.CharField(max_length=250, null=True)
