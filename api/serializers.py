@@ -25,17 +25,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         ordering = ['id']
         fields = ['id', 'dni', 'address', 'username', 'first_name', 'last_name', 'email', 'password', 'position', 'primary_phone_number', 'secondary_phone_number', 'is_staff', 'date_joined']
 
-    def create(self, data):
-        instance = super(UserSerializer, self).create(data)
+    # def create(self, data):
+    #     instance = super(UserSerializer, self).create(data)
 
-        """ send_mail(
-            'Bteno',
-            from_email=EMAIL_HOST_USER,
-            html_message=render_to_string("registration.html", context={ "first_name": data.get("first_name") }),
-            message='Bienvenido a Bteno!',
-            recipient_list=[data.get("email")]
-        ) """
-        return instance
+    #     """ send_mail(
+    #         'Bteno',
+    #         from_email=EMAIL_HOST_USER,
+    #         html_message=render_to_string("registration.html", context={ "first_name": data.get("first_name") }),
+    #         message='Bienvenido a Bteno!',
+    #         recipient_list=[data.get("email")]
+    #     ) """
+    #     return instance
 
 class InvitationSerializer(serializers.ModelSerializer):
     class Meta:

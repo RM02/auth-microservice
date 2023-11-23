@@ -112,7 +112,7 @@ AUTH_USER_MODEL='api.User'
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
   # It will work instead of the default serializer(TokenObtainPairSerializer).
-    # "TOKEN_OBTAIN_SERIALIZER": "api.serializers.MyTokenObtainPairSerializer",
+    # "TOKEN_OBTAIN_SERIALIZER": "api.serializers.TokenObtainPairSerializer",
   # ...
 }
 
